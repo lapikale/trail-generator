@@ -1,13 +1,12 @@
-# Generate a stone slab trail, trees, fences, and flowers. Default gen and
-# user input amount, plus random options.
+# Generate a stone slab trail, 2 tree types, fences, and flowers. User is 
+# encouraged to build their own trail using these assets.
 
-# Stone slab trail: flat polygons for stones. Only 3 stones per generation.
-# Trees: simple polys. Default none, user can add up to 6. Randon option.
-# Fences: simple polys. Two on each side of trail. Defaults none, user can
-    # add up to 6. Random option.
-# Flowers: simple polys. Defaults none, user can choose how much to generate.
-    # Random option.
+# Stone slab trail: flat polygons for stones. 3 stones per generation.
+# Tree 1: simple polys. Cylinder and 3 cones.
+# Tree 2: simple polys. Cylinder and 3 spheres.
+# Fences: simple polys. Cubes and bevel. 
+# Flowers: simple polys. Cylinder and beveled cubes. Generates in clumps.
 
-# Generate random whole trail option.
-
-# Pyside GUI.
+# Pyside GUI to interact with Maya.
+    # Spinbox for asset scale.
+    # Slider for asset rotation.
