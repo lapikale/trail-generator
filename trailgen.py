@@ -112,29 +112,45 @@ class PineTree():
 
 # Tree 2: simple polys. Cylinders and 2 spheres.
 
-trunk_h = 2.3
-trunk_r = 0.3
-branch_h = 1
-branch_r = 0.2
-leaf01_r = 1.6
-leaf02_r = 1.2
+class OakTree():
 
+    def __init__(self):
+        self.trunk_h = 2.3
+        self.trunk_r = 0.3
+        self.branch_h = 1
+        self.branch_r = 0.2
+        self.leaf01_r = 1.6
+        self.leaf02_r = 1.2
 
-trunk_obj, trunk_node = cmds.polyCylinder(name="trunk", h=trunk_h, r=trunk_r)
-cmds.xform(trunk_obj, translation=[0, trunk_h/2, 0])
-branch01_obj, branch01_node = cmds.polyCylinder(name="branch01", h=branch_h, r=branch_r)
-cmds.xform(branch01_obj, translation=[-0.4, branch_h/2+trunk_h-0.3, 0], rotation=[0,0,33])
-branch02_obj, branch02_node = cmds.polyCylinder(name="branch02", h=branch_h, r=branch_r)
-cmds.xform(branch02_obj, translation=[0.3, branch_h/2+trunk_h-0.5, 0], rotation=[0,0,-27])
+    def create(self):
+        group_objs = []
+        group_objs.append(self.create_trunk())
+        group_objs.append(self.create_leaves())
+        oak_grp = cmds.group([self.trunk_grp, self.leaf_grp], name="oak_tree")
 
-leaf01_obj, leaf01_node = cmds.polySphere(name="leaf01", r=leaf01_r)
-cmds.xform(leaf01_obj, translation=[-0.9, leaf01_r+trunk_h+0.5, 0])
-leaf02_obj, leaf02_node = cmds.polySphere(name="leaf02", r=leaf02_r)
-cmds.xform(leaf02_obj, translation=[1.3, leaf02_r+trunk_h-0.3, 0])
+    def create_trunk(self):
+        self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 
+                                                            r=self.trunk_r)
+        cmds.xform(self.trunk_obj, translation=[0, self.trunk_h/2, 0])
+        self.branch01_obj, self.branch01_node = cmds.polyCylinder(name="branch01", h=self.branch_h, 
+                                                                  r=self.branch_r)
+        cmds.xform(self.branch01_obj, translation=[-0.4, self.branch_h/2+self.trunk_h-0.3, 0], 
+                   rotation=[0,0,33])
+        self.branch02_obj, self.branch02_node = cmds.polyCylinder(name="branch02", h=self.branch_h, 
+                                                                  r=self.branch_r)
+        cmds.xform(self.branch02_obj, translation=[0.3, self.branch_h/2+self.trunk_h-0.5, 0], 
+                   rotation=[0,0,-27])
+        self.trunk_grp = cmds.group([self.trunk_obj, self.branch01_obj, self.branch02_obj], 
+                                    name="trunk_grp")
+        return self.trunk_grp
 
-trunk_grp = cmds.group([trunk_obj, branch01_obj, branch02_obj], name="trunk_grp")
-leaf_grp = cmds.group([leaf01_obj, leaf02_obj], name="leaf_grp")
-oak_grp = cmds.group([trunk_grp, leaf_grp], name="oak_tree01")
+    def create_leaves(self):
+        self.leaf01_obj, self.leaf01_node = cmds.polySphere(name="leaf01", r=self.leaf01_r)
+        cmds.xform(self.leaf01_obj, translation=[-0.9, self.leaf01_r+self.trunk_h+0.5, 0])
+        self.leaf02_obj, self.leaf02_node = cmds.polySphere(name="leaf02", r=self.leaf02_r)
+        cmds.xform(self.leaf02_obj, translation=[1.3, self.leaf02_r+self.trunk_h-0.3, 0])
+        self.leaf_grp = cmds.group([self.leaf01_obj, self.leaf02_obj], name="leaf_grp")
+        return self.leaf_grp
 
 # Fences: simple polys. Cubes and bevel. 
 
