@@ -81,26 +81,28 @@ class PineTree():
 
     def create(self):
         group_objs = []
-        group_objs.append(self.trunk_obj())
-        group_objs.append(self.leaf01_obj())
-        group_objs.append(self.leaf02_obj())
-        group_objs.append(self.leaf03_obj())
+        group_objs.append(self.create_trunk())
+        group_objs.append(self.create_leaves())
         cmds.group(group_objs, name="pine_tree")
 
     def create_trunk(self):
-        self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, r=self.trunk_r)
+        self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 
+                                                            r=self.trunk_r)
         cmds.xform(self.trunk_obj, translation=[0, self.trunk_h/2, 0])
         return self.trunk_obj
 
     def create_leaves(self):
-        self.leaf01_obj, self.leaf01_node = cmds.polyCone(name="leaf01", h=self.leaf01_h, r=self.leaf01_r)
+        self.leaf01_obj, self.leaf01_node = cmds.polyCone(name="leaf01", h=self.leaf01_h, 
+                                                          r=self.leaf01_r)
         cmds.xform(self.leaf01_obj, translation=[0, self.leaf01_h/2+self.trunk_h, 0])
 
-        self.leaf02_obj, self.leaf02_node = cmds.polyCone(name="leaf02", h=self.leaf02_h, r=self.leaf02_r)
+        self.leaf02_obj, self.leaf02_node = cmds.polyCone(name="leaf02", h=self.leaf02_h, 
+                                                          r=self.leaf02_r)
         cmds.xform(self.leaf02_obj, translation=[0, self.leaf02_h/2+self.trunk_h
                                             +(self.leaf01_h/2.6), 0])
         
-        self.leaf03_obj, self.leaf03_node = cmds.polyCone(name="leaf03", h=self.leaf03_h, r=self.leaf03_r)
+        self.leaf03_obj, self.leaf03_node = cmds.polyCone(name="leaf03", h=self.leaf03_h, 
+                                                          r=self.leaf03_r)
         cmds.xform(self.leaf03_obj, translation=[0, self.leaf03_h/2+self.trunk_h
                                             +(self.leaf01_h/2)+(self.leaf02_h)/2.9, 0])
 
@@ -152,9 +154,11 @@ p_edges = ['post02.e[6]', 'post02.e[7]']
 cmds.polyBevel( p_edges, segments=1, offset=0.1 )
 cmds.xform(post02_obj, translation=[2, post_h/2, 0])
 
-plank01_obj, plank01_node = cmds.polyCube(name="plank01", h=plank_h, w=plank_w, d=plank_d)
+plank01_obj, plank01_node = cmds.polyCube(name="plank01", h=plank_h, w=plank_w, 
+                                          d=plank_d)
 cmds.xform(plank01_obj, translation=[1, post_h/2+0.2, 0], rotation=[0,0,90])
-plank02_obj, plank02_node = cmds.polyCube(name="plank02", h=plank_h, w=plank_w, d=plank_d)
+plank02_obj, plank02_node = cmds.polyCube(name="plank02", h=plank_h, w=plank_w, 
+                                          d=plank_d)
 cmds.xform(plank02_obj, translation=[1, post_h/2-0.2, 0], rotation=[0,0,90])
 
 post_grp = cmds.group([post01_obj, post02_obj], name="post_grp")
