@@ -63,27 +63,46 @@ class StepStones():
 
 # Tree 1: simple polys. Cylinder and 3 cones.
 
-trunk_h = 2
-trunk_r = 0.3
+class PineTree():
 
-trunk_obj = cmds.polyCylinder(name="trunk", h=trunk_h, r=trunk_r)
-cmds.xform(trunk_obj, translation=[0, trunk_h/2, 0])
+    def __init__(self):
+        self.trunk_h = 2
+        self.trunk_r = 0.3
+        self.leaf01_h = 2.7
+        self.leaf01_r = 1.7
+        self.leaf02_h = 2.3
+        self.leaf02_r = 1.3
+        self.leaf03_h = 1.8
+        self.leaf03_r = 0.9
 
-leaf01_h = 2.7
-leaf01_r = 1.7
-leaf02_h = 2.3
-leaf02_r = 1.3
-leaf03_h = 1.8
-leaf03_r = 0.9
+    def create(self):
+        group_objs = []
+        group_objs.append(self.trunk_obj())
+        group_objs.append(self.leaf01_obj())
+        group_objs.append(self.leaf02_obj())
+        group_objs.append(self.leaf03_obj())
+        cmds.group(group_objs, name="pine_tree")
 
-leaf01_obj = cmds.polyCone(name="leaf01", h=leaf01_h, r=leaf01_r)
-cmds.xform(leaf01_obj, translation=[0, leaf01_h/2+trunk_h, 0])
+    def create_trunk(self):
+        self.trunk_obj = cmds.polyCylinder(name="trunk", h=self.trunk_h, r=self.trunk_r)
+        cmds.xform(self.trunk_obj, translation=[0, self.trunk_h/2, 0])
+        return self.trunk_obj
 
-leaf02_obj = cmds.polyCone(name="leaf02", h=leaf02_h, r=leaf02_r)
-cmds.xform(leaf02_obj, translation=[0, leaf02_h/2+trunk_h+(leaf01_h/2.6), 0])
+    def create_leaves(self):
+        self.leaf01_obj = cmds.polyCone(name="leaf01", h=self.leaf01_h, r=self.leaf01_r)
+        cmds.xform(self.leaf01_obj, translation=[0, self.leaf01_h/2+self.trunk_h, 0])
 
-leaf03_obj = cmds.polyCone(name="leaf03", h=leaf03_h, r=leaf03_r)
-cmds.xform(leaf03_obj, translation=[0, leaf03_h/2+trunk_h+(leaf01_h/2)+(leaf02_h)/2.9, 0])
+        self.leaf02_obj = cmds.polyCone(name="leaf02", h=self.leaf02_h, r=self.leaf02_r)
+        cmds.xform(self.leaf02_obj, translation=[0, self.leaf02_h/2+self.trunk_h
+                                            +(self.leaf01_h/2.6), 0])
+        
+        self.leaf03_obj = cmds.polyCone(name="leaf03", h=self.leaf03_h, r=self.leaf03_r)
+        cmds.xform(self.leaf03_obj, translation=[0, self.leaf03_h/2+self.trunk_h
+                                            +(self.leaf01_h/2)+(self.leaf02_h)/2.9, 0])
+
+        self.leaf_grp = cmds.group([self.leaf01_obj, self.leaf02_obj, self.leaf03_obj], 
+                                   name="leaf_grp")
+        return self.leaf_grp
 
 
 # Tree 2: simple polys. Cylinder and 3 spheres.
@@ -99,4 +118,6 @@ import importlib
 importlib.reload(trailgen)
 
 trail01 = trailgen.StepStones()
+tree01 = trailgen.PineTree()
 trail01.create()
+tree01.create()
