@@ -161,7 +161,25 @@ post_grp = cmds.group([post01_obj, post02_obj], name="post_grp")
 plank_grp = cmds.group([plank01_obj, plank02_obj], name="plank_grp")
 fence_grp = cmds.group([post_grp, plank_grp], name="fence_grp")
 
-# Flowers: simple polys. Cylinder and beveled cubes. Generates in clumps.
+# Flowers: simple polys. Cylinder and beveled cubes.
+
+stem_h = 0.4
+stem_r = 0.04
+petal_h = 0.15
+petal_w = 0.15
+petal_d = 0.15
+petal_sx = 2
+petal_sz = 2
+
+stem_obj, stem_node = cmds.polyCylinder(name="stem01", h=stem_h, r=stem_r)
+cmds.xform(stem_obj, translation=[0, stem_h/2, 0])
+petal_obj, petal_node = cmds.polyCube(name="petal01", h=petal_h, w=petal_w, d=petal_d, 
+                                      sx=petal_sx, sz=petal_sz)
+cmds.polySelect(petal_obj, edgeRing=1)
+cmds.polyExtrudeVertex(petal_obj, d=1, l=0.1, w=0.5)
+cmds.xform(petal_obj, translation=[0, petal_h/2+stem_h, 0])
+
+flower_grp = cmds.group([stem_obj, petal_obj], name="flower_grp")
 
 # Pyside GUI to interact with Maya.
     # Spinbox for asset scale.
