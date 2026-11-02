@@ -3,7 +3,7 @@ import maya.cmds as cmds
 # Generate a stone slab trail, 2 tree types, fences, and flowers. User is 
 # encouraged to build their own trail using these assets.
 
-# Stone slab trail: flat polygons for stones. 3 stones per generation.
+# Stone slab trail: flat polygons for stones. 4 stones per generation.
 
 class StepStones():
     
@@ -108,7 +108,7 @@ class PineTree():
                                    name="leaf_grp")
         return self.leaf_grp
 
-# Tree 2: simple polys. Cylinder and 3 spheres.
+# Tree 2: simple polys. Cylinders and 2 spheres.
 
 trunk_h = 2.3
 trunk_r = 0.3
@@ -135,6 +135,32 @@ leaf_grp = cmds.group([leaf01_obj, leaf02_obj], name="leaf_grp")
 oak_grp = cmds.group([trunk_grp, leaf_grp], name="oak_tree01")
 
 # Fences: simple polys. Cubes and bevel. 
+
+post_h = 1.3
+post_w = 0.3
+post_d = 0.2
+plank_h = 2.5
+plank_w = 0.2
+plank_d = 0.1
+
+post01_obj, post_node = cmds.polyCube(name="post01", h=post_h, w=post_w, d=post_d)
+p_edges = ['post01.e[6]', 'post01.e[7]']
+cmds.polyBevel( p_edges, segments=1, offset=0.1 )
+cmds.xform(post01_obj, translation=[0, post_h/2, 0])
+post02_obj, post_node = cmds.polyCube(name="post02", h=post_h, w=post_w, d=post_d)
+p_edges = ['post02.e[6]', 'post02.e[7]']
+cmds.polyBevel( p_edges, segments=1, offset=0.1 )
+cmds.xform(post02_obj, translation=[2, post_h/2, 0])
+
+plank01_obj, plank01_node = cmds.polyCube(name="plank01", h=plank_h, w=plank_w, d=plank_d)
+cmds.xform(plank01_obj, translation=[1, post_h/2+0.2, 0], rotation=[0,0,90])
+plank02_obj, plank02_node = cmds.polyCube(name="plank02", h=plank_h, w=plank_w, d=plank_d)
+cmds.xform(plank02_obj, translation=[1, post_h/2-0.2, 0], rotation=[0,0,90])
+
+post_grp = cmds.group([post01_obj, post02_obj], name="post_grp")
+plank_grp = cmds.group([plank01_obj, plank02_obj], name="plank_grp")
+fence_grp = cmds.group([post_grp, plank_grp], name="fence_grp")
+
 # Flowers: simple polys. Cylinder and beveled cubes. Generates in clumps.
 
 # Pyside GUI to interact with Maya.
