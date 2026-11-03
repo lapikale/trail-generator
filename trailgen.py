@@ -126,7 +126,7 @@ class OakTree():
         group_objs = []
         group_objs.append(self.create_trunk())
         group_objs.append(self.create_leaves())
-        oak_grp = cmds.group([self.trunk_grp, self.leaf_grp], name="oak_tree")
+        cmds.group(group_objs, name="oak_tree")
 
     def create_trunk(self):
         self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 
@@ -168,6 +168,7 @@ class Fence():
         group_objs = []
         group_objs.append(self.create_posts())
         group_objs.append(self.create_planks())
+        cmds.group(group_objs, name="fence")
 
     def create_posts(self):
         self.post01_obj, self.post_node = cmds.polyCube(name="post01", h=self.post_h, w=self.post_w, 
@@ -190,29 +191,39 @@ class Fence():
         self.plank02_obj, self.plank02_node = cmds.polyCube(name="plank02", h=self.plank_h, 
                                                             w=self.plank_w, d=self.plank_d)
         cmds.xform(self.plank02_obj, translation=[1, self.post_h/2-0.2, 0], rotation=[0,0,90])
-        self.plankt_grp = cmds.group([self.plank01_obj, self.plank02_obj], name="plank_grp")
+        self.plank_grp = cmds.group([self.plank01_obj, self.plank02_obj], name="plank_grp")
         return self.plank_grp
       
 
 # Flowers: simple polys. Cylinder and beveled cubes.
 
-stem_h = 0.4
-stem_r = 0.04
-petal_h = 0.15
-petal_w = 0.15
-petal_d = 0.15
-petal_sx = 2
-petal_sz = 2
+class Flower():
 
-stem_obj, stem_node = cmds.polyCylinder(name="stem01", h=stem_h, r=stem_r)
-cmds.xform(stem_obj, translation=[0, stem_h/2, 0])
-petal_obj, petal_node = cmds.polyCube(name="petal01", h=petal_h, w=petal_w, d=petal_d, 
-                                      sx=petal_sx, sz=petal_sz)
-cmds.polySelect(petal_obj, edgeRing=1)
-cmds.polyExtrudeVertex(petal_obj, d=1, l=0.1, w=0.5)
-cmds.xform(petal_obj, translation=[0, petal_h/2+stem_h, 0])
+    def __init__(self):
+        self.stem_h = 0.4
+        self.stem_r = 0.04
+        self.petal_h = 0.15
+        self.petal_w = 0.15
+        self.petal_d = 0.15
+        self.petal_sx = 2
+        self.petal_sz = 2
 
-flower_grp = cmds.group([stem_obj, petal_obj], name="flower_grp")
+    def create(self):
+        group_objs = []
+        group_objs.append(self.create_flower())
+        cmds.group(group_objs, name="flower")
+
+    def create_flower(self):
+        self.stem_obj, self.stem_node = cmds.polyCylinder(name="stem01", h=self.stem_h, r=self.stem_r)
+        cmds.xform(self.stem_obj, translation=[0, self.stem_h/2, 0])
+        self.petal_obj, self.petal_node = cmds.polyCube(name="petal01", h=self.petal_h, 
+                                                        w=self.petal_w, d=self.petal_d, 
+                                                        sx=self.petal_sx, sz=self.petal_sz)
+        cmds.polySelect(self.petal_obj, edgeRing=1)
+        cmds.polyExtrudeVertex(self.petal_obj, d=1, l=0.1, w=0.5)
+        cmds.xform(self.petal_obj, translation=[0, self.petal_h/2+self.stem_h, 0])
+        self.flower_grp = cmds.group([self.stem_obj, self.petal_obj], name="flower_grp")
+        return self.flower_grp
 
 # Pyside GUI to interact with Maya.
     # Spinbox for asset scale.
@@ -221,8 +232,3 @@ flower_grp = cmds.group([stem_obj, petal_obj], name="flower_grp")
 import trailgen
 import importlib
 importlib.reload(trailgen)
-
-trail01 = trailgen.StepStones()
-tree01 = trailgen.PineTree()
-trail01.create()
-tree01.create()
