@@ -6,6 +6,11 @@ import trailgen
 importlib.reload(trailgen)
 from trailgen import StepStones
 
+# StepStones:
+# individual stone rotate
+# individuale stone depth+width (scale)
+# group rotate
+
 class StepStonesGUI(QtWidgets.QDialog):
 
     def __init__(self):
@@ -24,3 +29,18 @@ class StepStonesGUI(QtWidgets.QDialog):
     def _form_ui(self):
             self.form_lay = QtWidgets.QFormLayout()
             self.main_lay.addLayout(self.form_lay)
+
+# Trees:
+# toggle between type of tree
+# group scale
+# group rotate
+# individual trunk height
+
+# Fence:
+# individual plank rotation
+# group rotation
+# group depth (length)
+
+# Flower:
+# group scale
+# group rotate
