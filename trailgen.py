@@ -8,7 +8,14 @@ import maya.cmds as cmds
 class StepStones():
     
     def __init__(self):
-        self.stone_d = 1
+        self.stone1_d = 1
+        self.stone2_d = 1
+        self.stone3_d = 1
+        self.stone4_d = 1
+        self.stone1_w = 1
+        self.stone2_w = 1
+        self.stone3_w = 1
+        self.stone4_w = 1
         self.stone_h = 0.2
         self.stone_sx = 2
         self.stone_sz = 2
@@ -28,9 +35,9 @@ class StepStones():
         cmds.rotate(self.ss_rotate, y=True)
 
     def stone01(self):
-        self.stone01_obj, self.stone01_node = cmds.polyCube(name="stone01", d=self.stone_d, 
-                                                            h=self.stone_h, sx=self.stone_sx, 
-                                                            sz=self.stone_sz)
+        self.stone01_obj, self.stone01_node = cmds.polyCube(name="stone01", d=self.stone1_d, 
+                                                            h=self.stone_h, w=self.stone1_w, 
+                                                            sx=self.stone_sx, sz=self.stone_sz)
         s_edges = ['stone01.e[13]', 'stone01.e[22]', 'stone01.e[30]', 'stone01.e[31]']
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone01")
@@ -39,9 +46,9 @@ class StepStones():
         return self.stone01_obj
 
     def stone02(self):
-        self.stone02_obj, self.stone02_node = cmds.polyCube(name="stone02", d=self.stone_d, 
-                                                            h=self.stone_h, sx=self.stone_sx, 
-                                                            sz=self.stone_sz)
+        self.stone02_obj, self.stone02_node = cmds.polyCube(name="stone02", d=self.stone2_d, 
+                                                            h=self.stone_h, w=self.stone2_w, 
+                                                            sx=self.stone_sx, sz=self.stone_sz)
         s_edges = ['stone02.e[13]', 'stone02.e[22]', 'stone02.e[30]', 'stone02.e[31]']
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone02")
@@ -50,9 +57,9 @@ class StepStones():
         return self.stone02_obj
 
     def stone03(self):
-        self.stone03_obj, self.stone03_node = cmds.polyCube(name="stone03", d=self.stone_d, 
-                                                            h=self.stone_h, sx=self.stone_sx, 
-                                                            sz=self.stone_sz)
+        self.stone03_obj, self.stone03_node = cmds.polyCube(name="stone03", d=self.stone3_d, 
+                                                            h=self.stone_h, w=self.stone3_w, 
+                                                            sx=self.stone_sx, sz=self.stone_sz)
         s_edges = ['stone03.e[13]', 'stone03.e[22]', 'stone03.e[30]', 'stone03.e[31]']
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone03")
@@ -61,9 +68,9 @@ class StepStones():
         return self.stone03_obj
 
     def stone04(self):
-        self.stone04_obj, self.stone04_node = cmds.polyCube(name="stone04", d=self.stone_d, 
-                                                            h=self.stone_h, sx=self.stone_sx, 
-                                                            sz=self.stone_sz)
+        self.stone04_obj, self.stone04_node = cmds.polyCube(name="stone04", d=self.stone4_d, 
+                                                            h=self.stone_h, w=self.stone4_w, 
+                                                            sx=self.stone_sx, sz=self.stone_sz)
         s_edges = ['stone04.e[13]', 'stone04.e[22]', 'stone04.e[30]', 'stone04.e[31]']
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone04")

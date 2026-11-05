@@ -20,7 +20,7 @@ def get_main_maya_win():
 # //individual stone rotate
 # individuale stone depth+width (scale)
 # //group rotate
-# separator per stone
+# //individual group boxes
 
 class StepStonesGUI(QtWidgets.QDialog):
 
@@ -87,28 +87,48 @@ class StepStonesGUI(QtWidgets.QDialog):
         self.s1_r_slider.setMinimum(-360)
         self.s1_r_slider.setMaximum(360)
         self.s1_r_slider.setValue(-10)
+
+        self.s1_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.s1_size_dspnbx.setValue(1)
+
         self.s1_lay.addRow("Rotate Stone01", self.s1_r_slider)
+        self.s1_lay.addRow("Stone01 Size", self.s1_size_dspnbx)
 
     def _s2_edit(self):
         self.s2_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s2_r_slider.setMinimum(-360)
         self.s2_r_slider.setMaximum(360)
         self.s2_r_slider.setValue(8)
+
+        self.s2_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.s2_size_dspnbx.setValue(1)
+
         self.s2_lay.addRow("Rotate Stone02", self.s2_r_slider)
+        self.s2_lay.addRow("Stone02 Size", self.s2_size_dspnbx)
 
     def _s3_edit(self):
         self.s3_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s3_r_slider.setMinimum(-360)
         self.s3_r_slider.setMaximum(360)
         self.s3_r_slider.setValue(28)
+
+        self.s3_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.s3_size_dspnbx.setValue(1)
+
         self.s3_lay.addRow("Rotate Stone03", self.s3_r_slider)
+        self.s3_lay.addRow("Stone03 Size", self.s3_size_dspnbx)
 
     def _s4_edit(self):
         self.s4_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s4_r_slider.setMinimum(-360)
         self.s4_r_slider.setMaximum(360)
         self.s4_r_slider.setValue(-21)
+
+        self.s4_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.s4_size_dspnbx.setValue(1)
+
         self.s4_lay.addRow("Rotate Stone04", self.s4_r_slider)
+        self.s4_lay.addRow("Stone04 Size", self.s4_size_dspnbx)
     
     def create_connections(self):
         self.create_btn.clicked.connect(self.create)
@@ -120,6 +140,16 @@ class StepStonesGUI(QtWidgets.QDialog):
         self.ss_gen.s2_r = self.s2_r_slider.value()
         self.ss_gen.s3_r = self.s3_r_slider.value()
         self.ss_gen.s4_r = self.s4_r_slider.value()
+
+        self.ss_gen.stone1_d = self.s1_size_dspnbx.value()
+        self.ss_gen.stone1_w = self.s1_size_dspnbx.value()
+        self.ss_gen.stone2_d = self.s2_size_dspnbx.value()
+        self.ss_gen.stone2_w = self.s2_size_dspnbx.value()
+        self.ss_gen.stone3_d = self.s3_size_dspnbx.value()
+        self.ss_gen.stone3_w = self.s3_size_dspnbx.value()
+        self.ss_gen.stone4_d = self.s4_size_dspnbx.value()
+        self.ss_gen.stone4_w = self.s4_size_dspnbx.value()
+
         self.ss_gen.create()
 
 # Trees:
