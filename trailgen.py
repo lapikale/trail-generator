@@ -12,6 +12,11 @@ class StepStones():
         self.stone_h = 0.2
         self.stone_sx = 2
         self.stone_sz = 2
+        self.ss_rotate = 0
+        self.s1_r = -10
+        self.s2_r = 8
+        self.s3_r = 28
+        self.s4_r = -21
     
     def create(self):
         group_objs = []
@@ -19,7 +24,8 @@ class StepStones():
         group_objs.append(self.stone02())
         group_objs.append(self.stone03())
         group_objs.append(self.stone04())
-        cmds.group(group_objs, name="trail")
+        cmds.group(group_objs, name="trail01")
+        cmds.rotate(self.ss_rotate, y=True)
 
     def stone01(self):
         self.stone01_obj, self.stone01_node = cmds.polyCube(name="stone01", d=self.stone_d, 
@@ -29,7 +35,7 @@ class StepStones():
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone01")
         cmds.move(0.6, 1.5, xz=True)
-        cmds.rotate(-10, y=True)
+        cmds.rotate(self.s1_r, y=True)
         return self.stone01_obj
 
     def stone02(self):
@@ -40,7 +46,7 @@ class StepStones():
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone02")
         cmds.move(-0.3, x=True)
-        cmds.rotate(8, y=True)
+        cmds.rotate(self.s2_r, y=True)
         return self.stone02_obj
 
     def stone03(self):
@@ -51,7 +57,7 @@ class StepStones():
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone03")
         cmds.move(0.7,-1.4, xz=True)
-        cmds.rotate(28, y=True)
+        cmds.rotate(self.s3_r, y=True)
         return self.stone03_obj
 
     def stone04(self):
@@ -62,7 +68,7 @@ class StepStones():
         cmds.polyMoveEdge(s_edges, ltz=0.1)
         cmds.select("stone04")
         cmds.move(-0.7,-2.4, xz=True)
-        cmds.rotate(-21, y=True)
+        cmds.rotate(self.s4_r, y=True)
         return self.stone04_obj
 
 # Tree 1: simple polys. Cylinder and 3 cones.
@@ -83,7 +89,7 @@ class PineTree():
         group_objs = []
         group_objs.append(self.create_trunk())
         group_objs.append(self.create_leaves())
-        cmds.group(group_objs, name="pine_tree")
+        cmds.group(group_objs, name="pine_tree01")
 
     def create_trunk(self):
         self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 
@@ -126,7 +132,7 @@ class OakTree():
         group_objs = []
         group_objs.append(self.create_trunk())
         group_objs.append(self.create_leaves())
-        cmds.group(group_objs, name="oak_tree")
+        cmds.group(group_objs, name="oak_tree01")
 
     def create_trunk(self):
         self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 
@@ -168,7 +174,7 @@ class Fence():
         group_objs = []
         group_objs.append(self.create_posts())
         group_objs.append(self.create_planks())
-        cmds.group(group_objs, name="fence")
+        cmds.group(group_objs, name="fence01")
 
     def create_posts(self):
         self.post01_obj, self.post_node = cmds.polyCube(name="post01", h=self.post_h, w=self.post_w, 
@@ -211,7 +217,7 @@ class Flower():
     def create(self):
         group_objs = []
         group_objs.append(self.create_flower())
-        cmds.group(group_objs, name="flower")
+        cmds.group(group_objs, name="flower01")
 
     def create_flower(self):
         self.stem_obj, self.stem_node = cmds.polyCylinder(name="stem01", h=self.stem_h, r=self.stem_r)
