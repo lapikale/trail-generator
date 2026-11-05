@@ -1,10 +1,18 @@
 import importlib
 
 from PySide6 import QtWidgets, QtCore
+from shiboken6 import wrapInstance
+
+import maya.OpenMayaUI as omui
 
 import trailgen
 importlib.reload(trailgen)
 from trailgen import StepStones
+
+
+def get_main_maya_win():
+    main_win = omui.MQtUtil.mainWindow()
+    return wrapInstance(int(main_win), QtWidgets.QWidget)
 
 # different tabs for different models
 
@@ -17,9 +25,10 @@ from trailgen import StepStones
 class StepStonesGUI(QtWidgets.QDialog):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(parent=get_main_maya_win())
         self.ss_gen = StepStones()
         self.setWindowTitle("Generate a Trail!")
+        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
@@ -31,9 +40,11 @@ class StepStonesGUI(QtWidgets.QDialog):
         self.setLayout(self.main_lay)
 
     def _form_ui(self):
+        self.grp_box = QtWidgets.QGroupBox("Rotate")
         self.form_lay = QtWidgets.QFormLayout()
         self._grp_rotate()
         self._indv_rotate()
+        self.main_lay.addWidget(self.grp_box)
         self.main_lay.addLayout(self.form_lay)
 
     def _grp_rotate(self):
@@ -47,25 +58,25 @@ class StepStonesGUI(QtWidgets.QDialog):
         self.s1_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s1_r_slider.setMinimum(-360)
         self.s1_r_slider.setMaximum(360)
-        self.s1_r_slider.setValue(0)
+        self.s1_r_slider.setValue(-10)
         self.form_lay.addRow("Rotate Stone01", self.s1_r_slider)
 
         self.s2_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s2_r_slider.setMinimum(-360)
         self.s2_r_slider.setMaximum(360)
-        self.s2_r_slider.setValue(0)
+        self.s2_r_slider.setValue(8)
         self.form_lay.addRow("Rotate Stone02", self.s2_r_slider)
 
         self.s3_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s3_r_slider.setMinimum(-360)
         self.s3_r_slider.setMaximum(360)
-        self.s3_r_slider.setValue(0)
+        self.s3_r_slider.setValue(28)
         self.form_lay.addRow("Rotate Stone03", self.s3_r_slider)
 
         self.s4_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s4_r_slider.setMinimum(-360)
         self.s4_r_slider.setMaximum(360)
-        self.s4_r_slider.setValue(0)
+        self.s4_r_slider.setValue(-21)
         self.form_lay.addRow("Rotate Stone04", self.s4_r_slider)
     
     def create_connections(self):
