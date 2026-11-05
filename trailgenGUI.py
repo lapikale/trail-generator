@@ -35,55 +35,80 @@ class StepStonesGUI(QtWidgets.QDialog):
     def create_layout(self):
         self.main_lay = QtWidgets.QVBoxLayout()
         self._form_ui()
+        self._group_boxes()
         self.create_btn = QtWidgets.QPushButton("Create")
         self.main_lay.addWidget(self.create_btn)
         self.setLayout(self.main_lay)
 
     def _form_ui(self):
-        self.grp_box = QtWidgets.QGroupBox("Rotate")
         self.form_lay = QtWidgets.QFormLayout()
+        self.main_lay.addLayout(self.form_lay)
+
+    def _group_boxes(self):
+        self.grp_box = QtWidgets.QGroupBox("Group Editor")
+        self.s1_box = QtWidgets.QGroupBox("Stone01 Editor")
+        self.s2_box = QtWidgets.QGroupBox("Stone02 Editor")
+        self.s3_box = QtWidgets.QGroupBox("Stone03 Editor")
+        self.s4_box = QtWidgets.QGroupBox("Stone04 Editor")
+
+        self.grp_lay = QtWidgets.QFormLayout()
+        self.s1_lay = QtWidgets.QFormLayout()
+        self.s2_lay = QtWidgets.QFormLayout()
+        self.s3_lay = QtWidgets.QFormLayout()
+        self.s4_lay = QtWidgets.QFormLayout()
+
+        self.grp_box.setLayout(self.grp_lay)
+        self.s1_box.setLayout(self.s1_lay)
+        self.s2_box.setLayout(self.s2_lay)
+        self.s3_box.setLayout(self.s3_lay)
+        self.s4_box.setLayout(self.s4_lay)
+
         self._grp_edit()
         self._s1_edit()
         self._s2_edit()
         self._s3_edit()
         self._s4_edit()
+
         self.main_lay.addWidget(self.grp_box)
-        self.main_lay.addLayout(self.form_lay)
+        self.main_lay.addWidget(self.s1_box)
+        self.main_lay.addWidget(self.s2_box)
+        self.main_lay.addWidget(self.s3_box)
+        self.main_lay.addWidget(self.s4_box)
 
     def _grp_edit(self):
         self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.grp_rotate_slider.setMinimum(-360)
         self.grp_rotate_slider.setMaximum(360)
         self.grp_rotate_slider.setValue(0)
-        self.form_lay.addRow("Rotate", self.grp_rotate_slider)
+        self.grp_lay.addRow("Rotate", self.grp_rotate_slider)
 
     def _s1_edit(self):
         self.s1_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s1_r_slider.setMinimum(-360)
         self.s1_r_slider.setMaximum(360)
         self.s1_r_slider.setValue(-10)
-        self.form_lay.addRow("Rotate Stone01", self.s1_r_slider)
+        self.s1_lay.addRow("Rotate Stone01", self.s1_r_slider)
 
     def _s2_edit(self):
         self.s2_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s2_r_slider.setMinimum(-360)
         self.s2_r_slider.setMaximum(360)
         self.s2_r_slider.setValue(8)
-        self.form_lay.addRow("Rotate Stone02", self.s2_r_slider)
+        self.s2_lay.addRow("Rotate Stone02", self.s2_r_slider)
 
     def _s3_edit(self):
         self.s3_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s3_r_slider.setMinimum(-360)
         self.s3_r_slider.setMaximum(360)
         self.s3_r_slider.setValue(28)
-        self.form_lay.addRow("Rotate Stone03", self.s3_r_slider)
+        self.s3_lay.addRow("Rotate Stone03", self.s3_r_slider)
 
     def _s4_edit(self):
         self.s4_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s4_r_slider.setMinimum(-360)
         self.s4_r_slider.setMaximum(360)
         self.s4_r_slider.setValue(-21)
-        self.form_lay.addRow("Rotate Stone04", self.s4_r_slider)
+        self.s4_lay.addRow("Rotate Stone04", self.s4_r_slider)
     
     def create_connections(self):
         self.create_btn.clicked.connect(self.create)
