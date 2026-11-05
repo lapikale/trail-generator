@@ -17,7 +17,7 @@ def get_main_maya_win():
 # different tabs for different models
 
 # StepStones:
-# individual stone rotate
+# //individual stone rotate
 # individuale stone depth+width (scale)
 # //group rotate
 # separator per stone
@@ -42,37 +42,43 @@ class StepStonesGUI(QtWidgets.QDialog):
     def _form_ui(self):
         self.grp_box = QtWidgets.QGroupBox("Rotate")
         self.form_lay = QtWidgets.QFormLayout()
-        self._grp_rotate()
-        self._indv_rotate()
+        self._grp_edit()
+        self._s1_edit()
+        self._s2_edit()
+        self._s3_edit()
+        self._s4_edit()
         self.main_lay.addWidget(self.grp_box)
         self.main_lay.addLayout(self.form_lay)
 
-    def _grp_rotate(self):
+    def _grp_edit(self):
         self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.grp_rotate_slider.setMinimum(-360)
         self.grp_rotate_slider.setMaximum(360)
         self.grp_rotate_slider.setValue(0)
         self.form_lay.addRow("Rotate", self.grp_rotate_slider)
 
-    def _indv_rotate(self):
+    def _s1_edit(self):
         self.s1_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s1_r_slider.setMinimum(-360)
         self.s1_r_slider.setMaximum(360)
         self.s1_r_slider.setValue(-10)
         self.form_lay.addRow("Rotate Stone01", self.s1_r_slider)
 
+    def _s2_edit(self):
         self.s2_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s2_r_slider.setMinimum(-360)
         self.s2_r_slider.setMaximum(360)
         self.s2_r_slider.setValue(8)
         self.form_lay.addRow("Rotate Stone02", self.s2_r_slider)
 
+    def _s3_edit(self):
         self.s3_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s3_r_slider.setMinimum(-360)
         self.s3_r_slider.setMaximum(360)
         self.s3_r_slider.setValue(28)
         self.form_lay.addRow("Rotate Stone03", self.s3_r_slider)
 
+    def _s4_edit(self):
         self.s4_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.s4_r_slider.setMinimum(-360)
         self.s4_r_slider.setMaximum(360)
