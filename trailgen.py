@@ -91,12 +91,16 @@ class PineTree():
         self.leaf02_r = 1.3
         self.leaf03_h = 1.8
         self.leaf03_r = 0.9
+        self.lf_x = 1
+        self.lf_y = 1
+        self.lf_z = 1
 
     def create(self):
         group_objs = []
         group_objs.append(self.create_trunk())
         group_objs.append(self.create_leaves())
         cmds.group(group_objs, name="pine_tree01")
+        cmds.scale(self.lf_x, self.lf_y, self.lf_z)
 
     def create_trunk(self):
         self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 

@@ -157,8 +157,7 @@ class StepStonesGUI(QtWidgets.QDialog):
         self.ss_gen.create()
 
 # PineTree:
-# group scale
-# group rotate
+# //group scale
 # //individual trunk height
 
 class PineTreeGUI(QtWidgets.QDialog):
@@ -181,6 +180,7 @@ class PineTreeGUI(QtWidgets.QDialog):
     def _form_ui(self):
         self.form_lay = QtWidgets.QFormLayout()
         self._trunk_edit()
+        self._grp_edit()
         self.main_lay.addLayout(self.form_lay)
 
     def _trunk_edit(self):
@@ -188,12 +188,21 @@ class PineTreeGUI(QtWidgets.QDialog):
         self.trunk_size_dspnbx.setValue(2)
         self.form_lay.addRow("Height", self.trunk_size_dspnbx)
 
+    def _grp_edit(self):
+        self.grp_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.grp_size_dspnbx.setValue(1)
+        self.form_lay.addRow("Tree Size", self.grp_size_dspnbx)
+
     def create_connections(self):
         self.create_btn.clicked.connect(self.create)
 
     @QtCore.Slot()
     def create(self):
         self.pt_gen.trunk_h = self.trunk_size_dspnbx.value()
+        self.pt_gen.lf_x = self.grp_size_dspnbx.value()
+        self.pt_gen.lf_y = self.grp_size_dspnbx.value()
+        self.pt_gen.lf_z = self.grp_size_dspnbx.value()
+        
         self.pt_gen.create()
 
 
