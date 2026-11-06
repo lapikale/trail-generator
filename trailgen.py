@@ -101,6 +101,7 @@ class PineTree():
         group_objs.append(self.create_leaves())
         cmds.group(group_objs, name="pine_tree01")
         cmds.scale(self.lf_x, self.lf_y, self.lf_z)
+        #cmds.move(self.trunk_h, y=True)
 
     def create_trunk(self):
         self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 
@@ -138,12 +139,18 @@ class OakTree():
         self.branch_r = 0.2
         self.leaf01_r = 1.6
         self.leaf02_r = 1.2
+        self.ot_rotate = 0
+        self.lf_x = 1
+        self.lf_y = 1
+        self.lf_z = 1
 
     def create(self):
         group_objs = []
         group_objs.append(self.create_trunk())
         group_objs.append(self.create_leaves())
         cmds.group(group_objs, name="oak_tree01")
+        cmds.rotate(self.ot_rotate, y=True)
+        cmds.scale(self.lf_x, self.lf_y, self.lf_z)
 
     def create_trunk(self):
         self.trunk_obj, self.trunk_node = cmds.polyCylinder(name="trunk", h=self.trunk_h, 

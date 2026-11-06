@@ -173,7 +173,7 @@ class PineTreeGUI(QtWidgets.QDialog):
     def create_layout(self):
         self.main_lay = QtWidgets.QVBoxLayout()
         self._form_ui()
-        self.create_btn = QtWidgets.QPushButton("Create Pine tree")
+        self.create_btn = QtWidgets.QPushButton("Create Pine Tree")
         self.main_lay.addWidget(self.create_btn)
         self.setLayout(self.main_lay)
 
@@ -202,14 +202,65 @@ class PineTreeGUI(QtWidgets.QDialog):
         self.pt_gen.lf_x = self.grp_size_dspnbx.value()
         self.pt_gen.lf_y = self.grp_size_dspnbx.value()
         self.pt_gen.lf_z = self.grp_size_dspnbx.value()
-        
+        #make tree spawn at base
         self.pt_gen.create()
-
 
 # OakTree:
 # group scale
-# group rotate
-# individual trunk height
+# //group rotate
+# //individual trunk height
+
+class OakTreeGUI(QtWidgets.QDialog):
+
+    def __init__(self):
+        super().__init__(parent=get_main_maya_win())
+        self.ot_gen = OakTree()
+        self.setWindowTitle("Oak Tree Generator")
+        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
+        self.create_layout()
+        self.create_connections()
+
+    def create_layout(self):
+        self.main_lay = QtWidgets.QVBoxLayout()
+        self._form_ui()
+        self.create_btn = QtWidgets.QPushButton("Create Oak Tree")
+        self.main_lay.addWidget(self.create_btn)
+        self.setLayout(self.main_lay)
+
+    def _form_ui(self):
+        self.form_lay = QtWidgets.QFormLayout()
+        self._trunk_edit()
+        self._grp_edit()
+        self.main_lay.addLayout(self.form_lay)
+
+    def _trunk_edit(self):
+        self.trunk_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.trunk_size_dspnbx.setValue(2)
+        self.form_lay.addRow("Height", self.trunk_size_dspnbx)
+
+    def _grp_edit(self):
+        self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
+        self.grp_rotate_slider.setMinimum(-360)
+        self.grp_rotate_slider.setMaximum(360)
+        self.grp_rotate_slider.setValue(0)
+        self.form_lay.addRow("Rotate", self.grp_rotate_slider)
+
+        self.grp_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.grp_size_dspnbx.setValue(1)
+        self.form_lay.addRow("Tree Size", self.grp_size_dspnbx)
+
+    def create_connections(self):
+        self.create_btn.clicked.connect(self.create)
+
+    @QtCore.Slot()
+    def create(self):
+        self.ot_gen.ot_rotate = self.grp_rotate_slider.value()
+        self.ot_gen.trunk_h = self.trunk_size_dspnbx.value()
+        self.ot_gen.lf_x = self.grp_size_dspnbx.value()
+        self.ot_gen.lf_y = self.grp_size_dspnbx.value()
+        self.ot_gen.lf_z = self.grp_size_dspnbx.value()
+        
+        self.ot_gen.create()
 
 # Fence:
 # individual plank rotation
