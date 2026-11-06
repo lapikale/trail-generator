@@ -8,6 +8,10 @@ import maya.OpenMayaUI as omui
 import trailgen
 importlib.reload(trailgen)
 from trailgen import StepStones
+from trailgen import PineTree
+from trailgen import OakTree
+from trailgen import Fence
+from trailgen import Flower
 
 
 def get_main_maya_win():
@@ -18,7 +22,7 @@ def get_main_maya_win():
 
 # StepStones:
 # //individual stone rotate
-# individuale stone depth+width (scale)
+# //individuale stone depth+width (scale)
 # //group rotate
 # //individual group boxes
 
@@ -27,22 +31,22 @@ class StepStonesGUI(QtWidgets.QDialog):
     def __init__(self):
         super().__init__(parent=get_main_maya_win())
         self.ss_gen = StepStones()
-        self.setWindowTitle("Generate a Trail!")
+        self.setWindowTitle("Stone Path Generator")
         self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
     def create_layout(self):
         self.main_lay = QtWidgets.QVBoxLayout()
-        self._form_ui()
+        #self._form_ui()
         self._group_boxes()
-        self.create_btn = QtWidgets.QPushButton("Create")
+        self.create_btn = QtWidgets.QPushButton("Create Stone Path")
         self.main_lay.addWidget(self.create_btn)
         self.setLayout(self.main_lay)
 
-    def _form_ui(self):
-        self.form_lay = QtWidgets.QFormLayout()
-        self.main_lay.addLayout(self.form_lay)
+    #def _form_ui(self):
+        #self.form_lay = QtWidgets.QFormLayout()
+        #self.main_lay.addLayout(self.form_lay)
 
     def _group_boxes(self):
         self.grp_box = QtWidgets.QGroupBox("Group Editor")
@@ -152,8 +156,48 @@ class StepStonesGUI(QtWidgets.QDialog):
 
         self.ss_gen.create()
 
-# Trees:
-# toggle between type of tree
+# PineTree:
+# group scale
+# group rotate
+# //individual trunk height
+
+class PineTreeGUI(QtWidgets.QDialog):
+
+    def __init__(self):
+        super().__init__(parent=get_main_maya_win())
+        self.pt_gen = PineTree()
+        self.setWindowTitle("Pine Tree Generator")
+        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
+        self.create_layout()
+        self.create_connections()
+
+    def create_layout(self):
+        self.main_lay = QtWidgets.QVBoxLayout()
+        self._form_ui()
+        self.create_btn = QtWidgets.QPushButton("Create Pine tree")
+        self.main_lay.addWidget(self.create_btn)
+        self.setLayout(self.main_lay)
+
+    def _form_ui(self):
+        self.form_lay = QtWidgets.QFormLayout()
+        self._trunk_edit()
+        self.main_lay.addLayout(self.form_lay)
+
+    def _trunk_edit(self):
+        self.trunk_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.trunk_size_dspnbx.setValue(2)
+        self.form_lay.addRow("Height", self.trunk_size_dspnbx)
+
+    def create_connections(self):
+        self.create_btn.clicked.connect(self.create)
+
+    @QtCore.Slot()
+    def create(self):
+        self.pt_gen.trunk_h = self.trunk_size_dspnbx.value()
+        self.pt_gen.create()
+
+
+# OakTree:
 # group scale
 # group rotate
 # individual trunk height
