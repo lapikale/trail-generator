@@ -263,9 +263,63 @@ class OakTreeGUI(QtWidgets.QDialog):
         self.ot_gen.create()
 
 # Fence:
-# individual plank rotation
-# group rotation
+# //individual plank rotation
+# //group rotation
 # group depth (length)
+
+class FenceGUI(QtWidgets.QDialog):
+
+    def __init__(self):
+        super().__init__(parent=get_main_maya_win())
+        self.fnc_gen = Fence()
+        self.setWindowTitle("Fence Generator")
+        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
+        self.create_layout()
+        self.create_connections()
+
+    def create_layout(self):
+        self.main_lay = QtWidgets.QVBoxLayout()
+        self._form_ui()
+        self._grp_edit()
+        self._indv_plank()
+        self.create_btn = QtWidgets.QPushButton("Create Fence")
+        self.main_lay.addWidget(self.create_btn)
+        self.setLayout(self.main_lay)
+
+    def _form_ui(self):
+        self.form_lay = QtWidgets.QFormLayout()
+        self.main_lay.addLayout(self.form_lay)
+
+    def _grp_edit(self):
+        self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
+        self.grp_rotate_slider.setMinimum(-360)
+        self.grp_rotate_slider.setMaximum(360)
+        self.grp_rotate_slider.setValue(0)
+        self.form_lay.addRow("Rotate", self.grp_rotate_slider)
+
+    def _indv_plank(self):
+        self.p1_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
+        self.p1_r_slider.setMinimum(80)
+        self.p1_r_slider.setMaximum(100)
+        self.p1_r_slider.setValue(90)
+        self.form_lay.addRow("Rotate Plank01", self.p1_r_slider)
+
+        self.p2_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
+        self.p2_r_slider.setMinimum(-10)
+        self.p2_r_slider.setMaximum(10)
+        self.p2_r_slider.setValue(0)
+        self.form_lay.addRow("Rotate Plank02", self.p2_r_slider)
+
+    def create_connections(self):
+        self.create_btn.clicked.connect(self.create)
+
+    @QtCore.Slot()
+    def create(self):
+        self.fnc_gen.fnc_rotate = self.grp_rotate_slider.value()
+        self.fnc_gen.p1_r = self.p1_r_slider.value()
+        self.fnc_gen.p2_r = self.p2_r_slider.value()
+            
+        self.fnc_gen.create()
 
 # Flower:
 # group scale

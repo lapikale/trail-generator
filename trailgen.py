@@ -187,12 +187,16 @@ class Fence():
         self.plank_h = 2.5
         self.plank_w = 0.2
         self.plank_d = 0.1
+        self.fnc_rotate = 0
+        self.p1_r = 0
+        self.p2_r = 0
 
     def create(self):
         group_objs = []
         group_objs.append(self.create_posts())
         group_objs.append(self.create_planks())
         cmds.group(group_objs, name="fence01")
+        cmds.rotate(self.fnc_rotate, y=True)
 
     def create_posts(self):
         self.post01_obj, self.post_node = cmds.polyCube(name="post01", h=self.post_h, w=self.post_w, 
@@ -212,10 +216,12 @@ class Fence():
         self.plank01_obj, self.plank01_node = cmds.polyCube(name="plank01", h=self.plank_h, 
                                                             w=self.plank_w, d=self.plank_d)
         cmds.xform(self.plank01_obj, translation=[1, self.post_h/2+0.2, 0], rotation=[0,0,90])
+        cmds.rotate(self.p1_r, z=True)
         self.plank02_obj, self.plank02_node = cmds.polyCube(name="plank02", h=self.plank_h, 
                                                             w=self.plank_w, d=self.plank_d)
         cmds.xform(self.plank02_obj, translation=[1, self.post_h/2-0.2, 0], rotation=[0,0,90])
         self.plank_grp = cmds.group([self.plank01_obj, self.plank02_obj], name="plank_grp")
+        cmds.rotate(self.p2_r, z=True)
         return self.plank_grp
       
 
