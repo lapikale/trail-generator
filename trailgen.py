@@ -237,11 +237,17 @@ class Flower():
         self.petal_d = 0.15
         self.petal_sx = 2
         self.petal_sz = 2
+        self.flr_rotate = 0
+        self.flr_x = 1
+        self.flr_y = 1
+        self.flr_z = 1
 
     def create(self):
         group_objs = []
         group_objs.append(self.create_flower())
         cmds.group(group_objs, name="flower01")
+        cmds.rotate(self.flr_rotate, y=True)
+        cmds.scale(self.flr_x, self.flr_y, self.flr_z)
 
     def create_flower(self):
         self.stem_obj, self.stem_node = cmds.polyCylinder(name="stem01", h=self.stem_h, r=self.stem_r)
@@ -254,11 +260,3 @@ class Flower():
         cmds.xform(self.petal_obj, translation=[0, self.petal_h/2+self.stem_h, 0])
         self.flower_grp = cmds.group([self.stem_obj, self.petal_obj], name="flower_grp")
         return self.flower_grp
-
-# Pyside GUI to interact with Maya.
-    # Spinbox for asset scale.
-    # Slider for asset rotation.
-
-import trailgen
-import importlib
-importlib.reload(trailgen)

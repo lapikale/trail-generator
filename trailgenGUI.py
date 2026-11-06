@@ -81,15 +81,15 @@ class StepStonesGUI(QtWidgets.QDialog):
 
     def _grp_edit(self):
         self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.grp_rotate_slider.setMinimum(-360)
-        self.grp_rotate_slider.setMaximum(360)
+        self.grp_rotate_slider.setMinimum(-180)
+        self.grp_rotate_slider.setMaximum(180)
         self.grp_rotate_slider.setValue(0)
         self.grp_lay.addRow("Rotate", self.grp_rotate_slider)
 
     def _s1_edit(self):
         self.s1_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.s1_r_slider.setMinimum(-360)
-        self.s1_r_slider.setMaximum(360)
+        self.s1_r_slider.setMinimum(-180)
+        self.s1_r_slider.setMaximum(180)
         self.s1_r_slider.setValue(-10)
 
         self.s1_size_dspnbx = QtWidgets.QDoubleSpinBox()
@@ -100,8 +100,8 @@ class StepStonesGUI(QtWidgets.QDialog):
 
     def _s2_edit(self):
         self.s2_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.s2_r_slider.setMinimum(-360)
-        self.s2_r_slider.setMaximum(360)
+        self.s2_r_slider.setMinimum(-180)
+        self.s2_r_slider.setMaximum(180)
         self.s2_r_slider.setValue(8)
 
         self.s2_size_dspnbx = QtWidgets.QDoubleSpinBox()
@@ -112,8 +112,8 @@ class StepStonesGUI(QtWidgets.QDialog):
 
     def _s3_edit(self):
         self.s3_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.s3_r_slider.setMinimum(-360)
-        self.s3_r_slider.setMaximum(360)
+        self.s3_r_slider.setMinimum(-180)
+        self.s3_r_slider.setMaximum(180)
         self.s3_r_slider.setValue(28)
 
         self.s3_size_dspnbx = QtWidgets.QDoubleSpinBox()
@@ -124,8 +124,8 @@ class StepStonesGUI(QtWidgets.QDialog):
 
     def _s4_edit(self):
         self.s4_r_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.s4_r_slider.setMinimum(-360)
-        self.s4_r_slider.setMaximum(360)
+        self.s4_r_slider.setMinimum(-180)
+        self.s4_r_slider.setMaximum(180)
         self.s4_r_slider.setValue(-21)
 
         self.s4_size_dspnbx = QtWidgets.QDoubleSpinBox()
@@ -229,8 +229,8 @@ class OakTreeGUI(QtWidgets.QDialog):
 
     def _form_ui(self):
         self.form_lay = QtWidgets.QFormLayout()
-        self._trunk_edit()
         self._grp_edit()
+        self._trunk_edit()
         self.main_lay.addLayout(self.form_lay)
 
     def _trunk_edit(self):
@@ -240,8 +240,8 @@ class OakTreeGUI(QtWidgets.QDialog):
 
     def _grp_edit(self):
         self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.grp_rotate_slider.setMinimum(-360)
-        self.grp_rotate_slider.setMaximum(360)
+        self.grp_rotate_slider.setMinimum(-180)
+        self.grp_rotate_slider.setMaximum(180)
         self.grp_rotate_slider.setValue(0)
         self.form_lay.addRow("Rotate", self.grp_rotate_slider)
 
@@ -292,8 +292,8 @@ class FenceGUI(QtWidgets.QDialog):
 
     def _grp_edit(self):
         self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
-        self.grp_rotate_slider.setMinimum(-360)
-        self.grp_rotate_slider.setMaximum(360)
+        self.grp_rotate_slider.setMinimum(-180)
+        self.grp_rotate_slider.setMaximum(180)
         self.grp_rotate_slider.setValue(0)
         self.form_lay.addRow("Rotate", self.grp_rotate_slider)
 
@@ -323,4 +323,49 @@ class FenceGUI(QtWidgets.QDialog):
 
 # Flower:
 # group scale
-# group rotate
+# //group rotate
+
+class FlowerGUI(QtWidgets.QDialog):
+
+    def __init__(self):
+        super().__init__(parent=get_main_maya_win())
+        self.flr_gen = Flower()
+        self.setWindowTitle("Flower Generator")
+        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
+        self.create_layout()
+        self.create_connections()
+
+    def create_layout(self):
+        self.main_lay = QtWidgets.QVBoxLayout()
+        self._form_ui()
+        self._grp_edit()
+        self.create_btn = QtWidgets.QPushButton("Create Flower")
+        self.main_lay.addWidget(self.create_btn)
+        self.setLayout(self.main_lay)
+
+    def _form_ui(self):
+        self.form_lay = QtWidgets.QFormLayout()
+        self.main_lay.addLayout(self.form_lay)
+
+    def _grp_edit(self):
+        self.grp_rotate_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
+        self.grp_rotate_slider.setMinimum(-180)
+        self.grp_rotate_slider.setMaximum(180)
+        self.grp_rotate_slider.setValue(0)
+        self.form_lay.addRow("Rotate", self.grp_rotate_slider)
+
+        self.grp_size_dspnbx = QtWidgets.QDoubleSpinBox()
+        self.grp_size_dspnbx.setValue(1)
+        self.form_lay.addRow("Flower Size", self.grp_size_dspnbx)
+
+    def create_connections(self):
+        self.create_btn.clicked.connect(self.create)
+    
+    @QtCore.Slot()
+    def create(self):
+        self.flr_gen.flr_rotate = self.grp_rotate_slider.value()
+        self.flr_gen.flr_x = self.grp_size_dspnbx.value()
+        self.flr_gen.flr_y = self.grp_size_dspnbx.value()
+        self.flr_gen.flr_z = self.grp_size_dspnbx.value()
+                
+        self.flr_gen.create()
