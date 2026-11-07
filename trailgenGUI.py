@@ -18,7 +18,32 @@ def get_main_maya_win():
     main_win = omui.MQtUtil.mainWindow()
     return wrapInstance(int(main_win), QtWidgets.QWidget)
 
-# different tabs for different models
+# //different tabs for different models
+
+class TrailGenGUI(QtWidgets.QWidget):
+
+    def __init__(self):
+        super().__init__(parent=get_main_maya_win())
+        self.setWindowTitle("Trail Generator")
+        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
+        self.create_layout()
+
+    def create_layout(self):
+        self.main_lay = QtWidgets.QVBoxLayout(self)
+        self.tabs = QtWidgets.QTabWidget()
+        self.ss_tab = StepStonesGUI()
+        self.pt_tab = PineTreeGUI()
+        self.ot_tab = OakTreeGUI()
+        self.fnc_tab = FenceGUI()
+        self.flr_tab = FlowerGUI()
+
+        self.tabs.addTab(self.ss_tab, "Stone Path")
+        self.tabs.addTab(self.pt_tab, "Pine Tree")
+        self.tabs.addTab(self.ot_tab, "Oak Tree")
+        self.tabs.addTab(self.fnc_tab, "Fence")
+        self.tabs.addTab(self.flr_tab, "Flower")
+
+        self.main_lay.addWidget(self.tabs)
 
 # StepStones:
 # //individual stone rotate
@@ -26,27 +51,20 @@ def get_main_maya_win():
 # //group rotate
 # //individual group boxes
 
-class StepStonesGUI(QtWidgets.QDialog):
+class StepStonesGUI(QtWidgets.QWidget):
 
     def __init__(self):
-        super().__init__(parent=get_main_maya_win())
+        super().__init__()
         self.ss_gen = StepStones()
-        self.setWindowTitle("Stone Path Generator")
-        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
     def create_layout(self):
         self.main_lay = QtWidgets.QVBoxLayout()
-        #self._form_ui()
         self._group_boxes()
         self.create_btn = QtWidgets.QPushButton("Create Stone Path")
         self.main_lay.addWidget(self.create_btn)
         self.setLayout(self.main_lay)
-
-    #def _form_ui(self):
-        #self.form_lay = QtWidgets.QFormLayout()
-        #self.main_lay.addLayout(self.form_lay)
 
     def _group_boxes(self):
         self.grp_box = QtWidgets.QGroupBox("Group Editor")
@@ -160,13 +178,11 @@ class StepStonesGUI(QtWidgets.QDialog):
 # //group scale
 # //individual trunk height
 
-class PineTreeGUI(QtWidgets.QDialog):
+class PineTreeGUI(QtWidgets.QWidget):
 
     def __init__(self):
-        super().__init__(parent=get_main_maya_win())
+        super().__init__()
         self.pt_gen = PineTree()
-        self.setWindowTitle("Pine Tree Generator")
-        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
@@ -206,17 +222,15 @@ class PineTreeGUI(QtWidgets.QDialog):
         self.pt_gen.create()
 
 # OakTree:
-# group scale
+# //group scale
 # //group rotate
 # //individual trunk height
 
-class OakTreeGUI(QtWidgets.QDialog):
+class OakTreeGUI(QtWidgets.QWidget):
 
     def __init__(self):
-        super().__init__(parent=get_main_maya_win())
+        super().__init__()
         self.ot_gen = OakTree()
-        self.setWindowTitle("Oak Tree Generator")
-        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
@@ -267,13 +281,11 @@ class OakTreeGUI(QtWidgets.QDialog):
 # //group rotation
 # group depth (length)
 
-class FenceGUI(QtWidgets.QDialog):
+class FenceGUI(QtWidgets.QWidget):
 
     def __init__(self):
-        super().__init__(parent=get_main_maya_win())
+        super().__init__()
         self.fnc_gen = Fence()
-        self.setWindowTitle("Fence Generator")
-        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
@@ -322,16 +334,14 @@ class FenceGUI(QtWidgets.QDialog):
         self.fnc_gen.create()
 
 # Flower:
-# group scale
+# //group scale
 # //group rotate
 
-class FlowerGUI(QtWidgets.QDialog):
+class FlowerGUI(QtWidgets.QWidget):
 
     def __init__(self):
-        super().__init__(parent=get_main_maya_win())
+        super().__init__()
         self.flr_gen = Flower()
-        self.setWindowTitle("Flower Generator")
-        self.setWindowFlag(QtCore.Qt.WindowType.Tool)
         self.create_layout()
         self.create_connections()
 
