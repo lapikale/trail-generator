@@ -1,9 +1,5 @@
 import maya.cmds as cmds
 
-# Generate a stone slab trail, 2 tree types, fences, and flowers. User is 
-# encouraged to build their own trail using these assets.
-
-# Stone slab trail: flat polygons for stones. 4 stones per generation.
 
 class StepStones():
     
@@ -31,7 +27,7 @@ class StepStones():
         group_objs.append(self.stone02())
         group_objs.append(self.stone03())
         group_objs.append(self.stone04())
-        cmds.group(group_objs, name="trail01")
+        cmds.group(group_objs, name="path01")
         cmds.rotate(self.ss_rotate, y=True)
 
     def stone01(self):
@@ -78,7 +74,6 @@ class StepStones():
         cmds.rotate(self.s4_r, y=True)
         return self.stone04_obj
 
-# Tree 1: simple polys. Cylinder and 3 cones.
 
 class PineTree():
 
@@ -128,7 +123,6 @@ class PineTree():
                                    name="leaf_grp")
         return self.leaf_grp
 
-# Tree 2: simple polys. Cylinders and 2 spheres.
 
 class OakTree():
 
@@ -176,7 +170,6 @@ class OakTree():
         self.leaf_grp = cmds.group([self.leaf01_obj, self.leaf02_obj], name="leaf_grp")
         return self.leaf_grp
 
-# Fences: simple polys. Cubes and bevel. 
 
 class Fence():
 
@@ -224,8 +217,6 @@ class Fence():
         cmds.rotate(self.p2_r, z=True)
         return self.plank_grp
       
-
-# Flowers: simple polys. Cylinder and beveled cubes.
 
 class Flower():
 

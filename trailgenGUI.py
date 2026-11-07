@@ -18,7 +18,6 @@ def get_main_maya_win():
     main_win = omui.MQtUtil.mainWindow()
     return wrapInstance(int(main_win), QtWidgets.QWidget)
 
-# //different tabs for different models
 
 class TrailGenGUI(QtWidgets.QWidget):
 
@@ -45,11 +44,6 @@ class TrailGenGUI(QtWidgets.QWidget):
 
         self.main_lay.addWidget(self.tabs)
 
-# StepStones:
-# //individual stone rotate
-# //individuale stone depth+width (scale)
-# //group rotate
-# //individual group boxes
 
 class StepStonesGUI(QtWidgets.QWidget):
 
@@ -174,9 +168,6 @@ class StepStonesGUI(QtWidgets.QWidget):
 
         self.ss_gen.create()
 
-# PineTree:
-# //group scale
-# //individual trunk height
 
 class PineTreeGUI(QtWidgets.QWidget):
 
@@ -221,10 +212,6 @@ class PineTreeGUI(QtWidgets.QWidget):
         #make tree spawn at base
         self.pt_gen.create()
 
-# OakTree:
-# //group scale
-# //group rotate
-# //individual trunk height
 
 class OakTreeGUI(QtWidgets.QWidget):
 
@@ -276,10 +263,6 @@ class OakTreeGUI(QtWidgets.QWidget):
         
         self.ot_gen.create()
 
-# Fence:
-# //individual plank rotation
-# //group rotation
-# group depth (length)
 
 class FenceGUI(QtWidgets.QWidget):
 
@@ -333,9 +316,6 @@ class FenceGUI(QtWidgets.QWidget):
             
         self.fnc_gen.create()
 
-# Flower:
-# //group scale
-# //group rotate
 
 class FlowerGUI(QtWidgets.QWidget):
 
